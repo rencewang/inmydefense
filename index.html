@@ -1,0 +1,245 @@
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>inmydefense | Lawrence Wang</title>
+    <meta name="author" content="Lawrence Wang" />
+
+    <style type="text/css">
+      * {
+        color: #009d48;
+      }
+      body {
+        background: radial-gradient(#f1f1f1, #9fa09f);
+        width: 100%;
+        overflow: hidden;
+        margin: 0;
+        padding: 0;
+      }
+      p {
+        padding: 0;
+        margin: 30px;
+      }
+      mark {
+        background-color: #ffc131;
+      }
+      a:hover {
+        text-decoration: none;
+      }
+      button {
+        background: none;
+        color: inherit;
+        border: none;
+        padding: 0;
+        font: inherit;
+        cursor: pointer;
+        outline: inherit;
+      }
+      button:hover {
+        cursor: pointer;
+      }
+      .navigation {
+        z-index: 999;
+        text-align: center;
+        position: fixed;
+        bottom: 30px;
+      }
+      #nav-left {
+        left: 30px;
+      }
+      #nav-right {
+        right: 30px;
+      }
+      .iconify {
+        width: 50px;
+        height: 100px;
+      }
+      #text-container {
+        margin-top: 10%;
+        display: grid;
+        place-items: center;
+      }
+      #text {
+        max-width: 1000px;
+        font-size: 50px;
+        line-height: 0.9;
+        font-family: 'Times New Roman', 'SimSun', 'STSong', serif;
+        font-weight: 400;
+        text-align: center;
+      }
+      .page {
+        position: fixed;
+        bottom: 30px;
+        left: 50%;
+        transform: translateX(-50%);
+        text-align: center;
+        padding: 10px;
+        outline: solid;
+      }
+      #number {
+        font-weight: 700;
+        font-size: 30px;
+      }
+      #count {
+        font-weight: 700;
+      }
+      @media (max-width: 600px) {
+        #text {
+          font-size: 35px;
+        }
+        #text-container {
+          margin-top: 5%;
+        }
+      }
+    </style>
+
+    <script
+      src="//code.jquery.com/jquery-3.6.0.min.js"
+      type="text/javascript"
+    ></script>
+    <script
+      src="//code.jquery.com/ui/1.13.0/jquery-ui.min.js"
+      type="text/javascript"
+    ></script>
+    <link
+      rel="icon"
+      href="https://cdn.glitch.com/0d89c148-b755-492e-b17c-ad944741bb59%2Ffavicon.ico?v=1597340972327"
+    />
+    <script src="https://code.iconify.design/1/1.0.7/iconify.min.js"></script>
+  </head>
+
+  <body>
+    <main>
+      <div class="navigation" id="nav-left">
+        <button type="text" onclick="revealPrev()">
+          <span
+            class="iconify"
+            data-icon="fe:arrow-left"
+            data-inline="false"
+          ></span>
+        </button>
+      </div>
+
+      <div class="navigation" id="nav-right">
+        <button type="text" onclick="revealNext()">
+          <span
+            class="iconify"
+            data-icon="fe:arrow-right"
+            data-inline="false"
+          ></span>
+        </button>
+      </div>
+
+      <div id="text-container">
+        <div id="text">
+          <p>To Ask <b>Why We Fight</b>?</p>
+        </div>
+      </div>
+
+      <div class="page">
+        <div id="number">Page 0</div>
+        <div id="count">1/4</div>
+      </div>
+    </main>
+
+    <script>
+      $(function () {
+        $('#text-container').draggable();
+      });
+
+      var posinblock = 1;
+      var stanza = [4, 7, 1, 6, 5, 5, 5, 2, 3];
+      var counter = -1;
+      var currentblock = 0;
+      var currentlen = 3;
+      var totalstanza = stanza.length;
+
+      function revealNext() {
+        let text = document.getElementById('text');
+        let count = document.getElementById('count');
+        let number = document.getElementById('number');
+
+        if (counter < currentlen - 1) {
+          counter += 1;
+          text.innerHTML += block[counter];
+          posinblock += 1;
+          count.innerHTML = posinblock + '/' + stanza[currentblock];
+        } else if (currentblock < totalstanza - 1) {
+          text.innerHTML = '';
+          number.innerHTML = '';
+          currentblock += 1;
+          currentlen += stanza[currentblock];
+          number.innerHTML = 'Page ' + currentblock;
+          posinblock = 0;
+
+          counter += 1;
+          text.innerHTML += block[counter];
+          posinblock += 1;
+          count.innerHTML = posinblock + '/' + stanza[currentblock];
+        } else if ((currentblock = totalstanza - 1)) {
+          text.innerHTML = "<br><a href='https://www.rence.la'>goodbye</a>";
+          number.innerHTML = 'Undefined';
+          count.innerHTML = 'Undefined/Undefined';
+        }
+      }
+
+      function revealPrev() {
+        if (counter < 0) {
+          alert('already going back?');
+        } else {
+          alert('there is no going back.');
+        }
+      }
+
+      var block = [
+        // "To Ask <b>Why We Fight</b>?",
+        "<p>If it's the <a href='https://genius.com/Lana-del-rey-love-song-lyrics' target='blank'>best</a></p>",
+        '<p>pass the test,</p>',
+        '<p>then <mark><i>yes</i></mark>.</p>',
+
+        "<p>Last couple of years have been <b><a href='https://www.nps.gov/chcu/index.htm' target='blank'>a mad trip</a></b>.</p>",
+        "<p>I've been a <b>Ferrari</b>.</p>",
+        '<p>Going too fast to see</p>',
+        "<p>all the <a href='https://genius.com/Bebe-rexha-ferrari-lyrics' target='blank'>good things</a> in front of me.</p>",
+        '<p>And the <i>wicked cadavers</i>,</p>',
+        '<p>the <i>portraits in the attic</i>,</p>',
+        '<p>are not ready to be found.</p>',
+
+        "<p><i>Because</i> <a href='https://genius.com/Imagine-dragons-bad-liar-lyrics' target='blank'><b>terrors</b></a> <i>don't prey on</i> <b>innocent</b> <i>victims.</i></p>",
+
+        '<p><i>But who will save my young blood?</i></p>',
+        '<p>Swallowing <mark>nostalgia</mark>,</p>',
+        '<p>chasing it with lime,</p>',
+        "<p>Don't help me forget:</p>",
+        "<p><b>the <a href='https://open.spotify.com/track/3kywzyEr7V106Un5cDyh12?si=gklq_GqmTqqGwfvbRv5bdg' target='blank'>ordinary</a> things I'd been,<b></p>",
+        "<p><b>the ordinary tears I'd spent.</b></p>",
+
+        '<p>Are we <i>ever</i> ready to see ourselves for who we are?</p>',
+        '<p>True bliss is not knowing who we are.</p>',
+        "<p><b>Is it <a href='https://genius.com/Lana-del-rey-love-song-lyrics' target='blank'>safe</a>? Is it safe to be who we are?</b></p>",
+        "<p>But we're not what we <a href='https://genius.com/Lorde-liability-reprise-lyrics' target='blank'>thought</a> we are.</p>",
+        "<p><i>We don't know who we thought we are.</i></p>",
+
+        '<p>Then go get <mark>running</mark>, go get <mark>hurry</mark>.</p>',
+        "<p>While it's <b>light out</b>, while it's <b>early</b>.</p>",
+        "<p>Before I start to <a href='https://genius.com/Troye-sivan-lost-boy-lyrics' target='blank'>miss</a>,</p>",
+        '<p><i>any</i> part of this,</p>',
+        '<p>and change my mind <b>forever</b>.</p>',
+
+        "<p>So I'll <b>pick the truth</b> I believe in</p>",
+        "<p>like a <a href='https://genius.com/Bastille-doom-days-lyrics' target='blank'>bad religion</a>.</p>",
+        "<p>And I'll take away the matches</p>",
+        "<p>before <a href='https://genius.com/Taylor-swift-dear-john-lyrics' target='blank'>fire</a> could catch me.</p>",
+        "<p><i><b>So don't look now.</b></i></p>",
+
+        "<p><b>那条没完没了的路</b><br><a href='https://en.wikipedia.org/wiki/On_the_Road' target='blank'>All that road going</a></p>",
+        '<p><b>一切怀有梦想的人</b><br>All the people dreaming</p>',
+
+        '<p>May the world continue to be lovely.</p>',
+        '<p><b>May I always be mine.</b></p>',
+        '<p>So help me god.</p>',
+      ];
+    </script>
+  </body>
+</html>
