@@ -11,6 +11,7 @@ var totalstanza = stanza.length;
 
 function revealNext() {
   let text = document.getElementById('text');
+  let page = document.getElementById('page');
   let count = document.getElementById('count');
   let number = document.getElementById('number');
 
@@ -33,8 +34,7 @@ function revealNext() {
     count.innerHTML = posinblock + '/' + stanza[currentblock];
   } else if ((currentblock = totalstanza - 1)) {
     text.innerHTML = "<br><a href='https://www.rence.la'>goodbye</a>";
-    number.innerHTML = '';
-    count.innerHTML = '';
+    page.style.display = 'none';
   }
 }
 
