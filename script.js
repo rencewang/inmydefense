@@ -33,8 +33,8 @@ function revealNext() {
     count.innerHTML = posinblock + '/' + stanza[currentblock];
   } else if ((currentblock = totalstanza - 1)) {
     text.innerHTML = "<br><a href='https://www.rence.la'>goodbye</a>";
-    number.innerHTML = 'Undefined';
-    count.innerHTML = 'Undefined/Undefined';
+    number.innerHTML = '';
+    count.innerHTML = '';
   }
 }
 
